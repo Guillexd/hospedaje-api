@@ -27,10 +27,10 @@ import { useAuthStore } from '../../stores/auth'
 import { apiNames } from '@/enums/apiNames'
 
 const initialStateAuthUser = {
-    email: 'enrique@gmail.com',
-    password: '12345678'
+  email: '',
+  password: ''
 }
-// eliminar estos valores xd
+
 const form = useForm({ initialValues: initialStateAuthUser })
 
 const { isPending, mutateAsync } = useAuth('/login', apiNames.post)
@@ -47,7 +47,7 @@ const handleLoginSubmit = form.handleSubmit((values: AuthState) => {
       return 'Inicio de sesión exitoso'
     },
     (err) => {
-      if(typeof err === 'object') {
+      if (typeof err === 'object') {
         form.setErrors(err)
         return 'Inicio de sesión fallido'
       }
@@ -71,7 +71,7 @@ const showPassword = ref<boolean>(false)
           <FormItem>
             <FormLabel>Correo electrónico</FormLabel>
             <FormControl>
-              <Input type="text" placeholder="user@example.com" v-bind="componentField" />
+              <Input type="text" placeholder="usuario@example.com" v-bind="componentField" />
             </FormControl>
             <FormMessage />
           </FormItem>

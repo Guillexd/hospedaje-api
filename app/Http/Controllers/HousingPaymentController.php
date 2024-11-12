@@ -42,12 +42,15 @@ class HousingPaymentController extends Controller
                         $query->where('name', 'LIKE', "%{$request->searchInput}%");
                     });
             }
-            if (isset($request->rent_debtors)) {
-                $query->whereNull('payment_date');
-            } elseif (isset($request->rent_payers)) {
-                $query->whereNotNull('payment_date');
-            }
-        })->orderBy('id', 'desc')->paginate($request->limit ?? 20);
+        });
+
+        if (isset($request->rent_debtors)) {
+            $housing_payment->whereNull('payment_date');
+        } elseif (isset($request->rent_payers)) {
+            $housing_payment->whereNotNull('payment_date');
+        }
+
+        $housing_payment = $housing_payment->orderBy('id', 'desc')->paginate($request->limit ?? 20);
 
         return new HousingPaymentCollection($housing_payment);
     }
@@ -119,12 +122,12 @@ class HousingPaymentController extends Controller
 
     public function getRentExpire(): HousingPaymentCollection
     {
-        $housing_payment = HousingPayment::toExpire()->get();
+        $housing_payment = HousingPayment::toExpire()->orderBy('id', 'desc')->get();
 
         return new HousingPaymentCollection($housing_payment);
     }
 
-    private function adjustDateByDifference($startDate, $endDate)
+    private function adjustDateByDifference($startDate, $endDate): array
     {
         $start = Carbon::parse($startDate);
         $end = Carbon::parse($endDate);

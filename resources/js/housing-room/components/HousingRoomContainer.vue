@@ -2,7 +2,7 @@
 import {
   createColumnHelper,
 } from '@tanstack/vue-table'
-import { House } from 'lucide-vue-next'
+import { BedSingle } from 'lucide-vue-next'
 import { h, reactive, ref } from 'vue'
 import DropdownHousingRoomOptions from './DropdownHousingRoomOptions.vue'
 import { Checkbox } from '../../components/ui/checkbox'
@@ -142,7 +142,7 @@ const columns = [
 
 <template>
   <Dialog :open="isHousingRoomDialogOpen" @update:open="isHousingRoomDialogOpen = $event">
-    <Header :icon="House" title="Gestión de habitaciones" :isFetching="isFetching"
+    <Header :icon="BedSingle" title="Gestión de habitaciones" :isFetching="isFetching"
       @reset:initial-form="resetInitialHousingRoomForm" />
     <HousingRoomModal :form="form" @reset="closeHousingRoomDialog" />
 

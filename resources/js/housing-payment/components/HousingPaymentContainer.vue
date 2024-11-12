@@ -30,6 +30,9 @@ import HousingPaymentModal from './HousingPaymentModal.vue'
 import { useForm } from 'vee-validate'
 import type { HousingPaymentState } from '@/types/types'
 import { getLocalTimeZone, today } from '@internationalized/date'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const initialStateDates = {
   start: undefined,
@@ -61,7 +64,7 @@ const defaultVisibleColumns = computed(() => {
 const params = reactive({
   page: 1,
   limit: window.innerWidth < 768 ? 5 : 10,
-  searchParam: '',
+  searchParam: route.query.customer as string || '',
   startDate: '',
   finishDate: '',
   paymentState: 'all' as PaymentState,
@@ -114,6 +117,10 @@ watch(dates, (value) => {
 
   params.startDate = formatDateToDateString(value.start)
   params.finishDate = formatDateToDateString(value.end, 'end')
+})
+
+watch(() => route.query, (value) => {
+  params.searchParam = value.customer as string
 })
 
 const inputKey = ref<number>(0)

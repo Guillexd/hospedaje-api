@@ -44,6 +44,10 @@ const handleLogOut = () => {
   authStore.logOut('Cerrando sesión', 'Sesión cerrada con éxito', 'Hubo un error al intentar cerrar sesión', () => router.push({ name: 'Login' }))
 }
 
+const searchRentDebtors = (customer: string) => {
+  router.push({ name: 'HousingPayment', query: { customer } })
+}
+
 const payments = ref<HousingPaymentI[]>([])
 
 onMounted(async () => {
@@ -67,11 +71,13 @@ onMounted(async () => {
     <section class="flex justify-center items-center gap-x-7">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div class="relative top-1 p-1 cursor-pointer hover:bg-slate-200 focus:bg-slate-200 dark:hover:bg-gray-700 dark:focus:bg-gray-700 rounded-full text-slate-950 dark:text-slate-50">
-              <Bell :size="25" />
-              <span v-if="payments.length > 0" class="absolute top-0 p-[2px] bg-red-700 text-white rounded-full text-xs font-bold">
-                {{ payments.length }}
-              </span>
+          <div
+            class="relative top-1 p-1 cursor-pointer hover:bg-slate-200 focus:bg-slate-200 dark:hover:bg-gray-700 dark:focus:bg-gray-700 rounded-full text-slate-950 dark:text-slate-50">
+            <Bell :size="25" />
+            <span v-if="payments.length > 0"
+              class="absolute top-0 p-[2px] bg-red-700 text-white rounded-full text-xs font-bold">
+              {{ payments.length }}
+            </span>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent class="w-96">
@@ -79,7 +85,8 @@ onMounted(async () => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup class="max-h-96 overflow-y-auto overflow-x-hidden">
             <template v-for="payment in payments" :key="payment.id">
-              <DropdownMenuItem class="p-3 text-sm text-gray-800 dark:text-gray-100 cursor-pointer">
+              <DropdownMenuItem class="p-3 text-sm text-gray-800 dark:text-gray-100 cursor-pointer"
+                @click="searchRentDebtors(payment.tenancy_document_number)">
 
                 <Banknote class="w-10 text-blue-600 dark:text-blue-400 mr-4" :size="40" />
                 <section class="flex-1 text-xs">
@@ -87,15 +94,19 @@ onMounted(async () => {
                     Pago pendiente de <span class="text-blue-600 dark:text-blue-400">{{ payment.tenancy_name }}</span>
                   </p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">
-                    DNI: <span class="font-semibold text-gray-800 dark:text-gray-200">{{ payment.tenancy_document_number }}</span>
+                    DNI: <span class="font-semibold text-gray-800 dark:text-gray-200">{{ payment.tenancy_document_number
+                      }}</span>
                   </p>
                   <p class="text-xs text-gray-500 dark:text-gray-400">
                     <span class="font-semibold text-blue-600 dark:text-blue-400">{{ payment.housing }}</span>
-                    - Habitación <span class="font-bold text-gray-800 dark:text-gray-200">{{ payment.housing_room }}</span>
+                    - Habitación <span class="font-bold text-gray-800 dark:text-gray-200">{{ payment.housing_room
+                      }}</span>
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Vencimiento: {{ dateCalculator(payment.rental_end_date) }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Vencimiento: {{
+                    dateCalculator(payment.rental_end_date) }}</p>
                 </section>
-                <p class="font-medium text-blue-600 dark:text-blue-400 mt-1">{{ payment.payment.toLocaleString(keyNames.lang, { style: "currency", currency: "PEN" }) }}</p>
+                <p class="font-medium text-blue-600 dark:text-blue-400 mt-1">{{
+                  payment.payment.toLocaleString(keyNames.lang, { style: "currency", currency: "PEN" }) }}</p>
 
               </DropdownMenuItem>
               <DropdownMenuSeparator />
