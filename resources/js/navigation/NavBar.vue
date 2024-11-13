@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BedSingle, House, IdCard, KeyRound, User, Users } from 'lucide-vue-next'
+import { BedSingle, ChartPie, House, IdCard, KeyRound, User, Users } from 'lucide-vue-next'
 import {
   Command,
   CommandEmpty,
@@ -30,10 +30,10 @@ const closeSidebar = () => {
     class="fixed inset-y-0 left-0 z-30 w-[17rem] overflow-y-auto transition duration-300 transform xl:translate-x-0 xl:static xl:inset-0 -translate-x-full ease-in border-r-2 border-slate-300">
     <Command class="p-3 font-medium bg-teal-300">
       <picture
-        class="hover:scale-[106%] transition flex items-center justify-center mt-4 overflow-hidden mx-auto rounded-full h-32 w-32">
+        class="hover:scale-[106%] transition flex items-center justify-center mt-4 overflow-hidden mx-auto rounded-full h-36 w-36">
         <a :href="messagePerson('995578780')" target="_blank" rel="noopener noreferrer" class="m-3 ms-4 cursor-zoom-in"
           title="Presione para contactarse con el soporte técnico del sistema">
-          <img src="/assets/img/sl2.jpg" class="scale-[180%]">
+          <img src="/assets/img/sl2.jpg" class="scale-[180%] -translate-y-3 -translate-x-[2px]">
         </a>
       </picture>
       <CommandInput placeholder="Escribe una opción para buscar" />
@@ -51,7 +51,7 @@ const closeSidebar = () => {
           {
             heading: 'Administrativo',
             items: [
-              { icon: IdCard, name: 'Dashboard', value: 'inicio', text: 'Inicio' },
+              { icon: ChartPie, name: 'Dashboard', value: 'inicio', text: 'Inicio' },
               { icon: User, name: 'Users', value: 'usuarios', text: 'Usuarios' },
               { icon: IdCard, name: 'IdentityDoc', value: 'documento de identidad', text: 'Documentos de identidad' },
             ]

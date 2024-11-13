@@ -3,14 +3,15 @@ import { ref } from 'vue'
 import Header from './Header.vue'
 import NavBar from './NavBar.vue'
 import Loader from '../Presentation/Loader.vue'
-// import { Permissions } from './enums/permissions'
+import { Permissions } from '../enums/permissions'
 import { useAuthStore } from '../stores/auth'
 import Footer from '../Presentation/Footer.vue'
 import { ArrowBigUpDash } from 'lucide-vue-next'
 
 const authStore = useAuthStore()
-// console.log(authStore.user)
-// console.log(authStore.permissions.includes(Permissions.AdminAccess))
+console.log(authStore.user)
+console.log(authStore.user.permissions?.includes(Permissions.AdminAccess as never)) // NO SE PORQUE NO LEE PERMISSION XD
+
 const sidebarOpen = ref(false)
 const toggleSidebar = (newValue: boolean): void => {
   sidebarOpen.value = newValue

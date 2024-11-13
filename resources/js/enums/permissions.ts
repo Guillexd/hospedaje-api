@@ -1,4 +1,4 @@
 export enum Permissions {
-    AdminAccess = 'admin_access',
+    AdminAccess = 'view dashboard',
     UserAccess = 'user_access',
   }

@@ -126,3 +126,23 @@ export interface HousingPaymentState extends Pick<HousingPaymentI, payment | ren
   tenancy_id?: number,
   housing_room_id?: number,
 }
+
+interface HousingDataI {
+  name: string,
+  total: number,
+}
+
+interface HousingStateI {
+  housing: string,
+  data: HousingDataI[],
+}
+
+interface IncomeDataI {
+  month: string,
+  income: number,
+}
+
+export interface DashboardI {
+  housingState: HousingStateI[],
+  incomeState: IncomeDataI[],
+}

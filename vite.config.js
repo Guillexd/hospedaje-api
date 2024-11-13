@@ -28,36 +28,23 @@ export default defineConfig({
                 short_name: "Santa Lucía",
                 start_url: "/",
                 display: "standalone",
-                background_color: "#2E3C3B",
-                theme_color: "#2E3C3B",
+                background_color: "#1D1D1D",
+                theme_color: "#1D1D1D",
                 lang: "es",
                 scope: "/",
                 icons: [
-                  {
-                    src: "/assets/img/sl2.jpg",
-                    sizes: "32x32",
-                    type: "image/jpg",
-                },
-                {
-                    src: "/assets/img/sl2.jpg",
-                    sizes: "96x96",
-                    type: "image/jpg",
-                },
-                {
-                    src: "/assets/img/sl2.jpg",
-                    sizes: "128x128",
-                    type: "image/jpg",
-                },
-                {
-                    src: "/assets/img/sl2.jpg",
-                    sizes: "256x256",
-                    type: "image/jpg",
-                },
-                {
-                    src: "/assets/img/sl2.jpg",
-                    sizes: "512x512",
-                    type: "image/jpg",
-                },
+                    {
+                        src: "/assets/img/sl2.jpg",
+                        sizes: "192x192",
+                        type: "image/jpg",
+                        purpose: "maskable"
+                    },
+                    {
+                        src: "/assets/img/sl2.jpg",
+                        sizes: "512x512",
+                        type: "image/jpg",
+                        purpose: "maskable"
+                    },
                 ],
             },
         }),

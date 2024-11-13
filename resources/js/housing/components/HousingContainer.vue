@@ -145,7 +145,7 @@ const columns = [
     <FilterBarPresentation :render="!!params.searchParam" :filters="[
       {
         render: !!params.searchParam,
-        tag: 'Busqueda',
+        tag: 'Búsqueda',
         name: params.searchParam,
         handleClick: () => {
           inputKey += 1

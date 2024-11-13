@@ -7,7 +7,7 @@ import { messagePerson } from '@/utils/utils';
     <div class="mx-auto py-8 px-4 text-slate-800 dark:text-slate-200">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center"><img src="/assets/img/sl2.jpg" alt="Logo de la Empresa"
-            class="w-24 mb-4 mx-auto rounded-lg">
+            class="w-44 sm:w-32 mb-4 mx-auto rounded-lg">
           <h3 class="text-lg font-semibold mb-4">Hospedaje Santa Lucía</h3>
         </div>
         <div class="text-center">

@@ -200,7 +200,7 @@ const columns = [
     <FilterBarPresentation :render="(!!dates.start && !!dates.end) || !!params.searchParam" :filters="[
       {
         render: !!params.searchParam,
-        tag: 'Busqueda',
+        tag: 'Búsqueda',
         name: params.searchParam,
         handleClick: () => {
           inputKey += 1
@@ -211,7 +211,7 @@ const columns = [
       {
         render: (!!dates.start && !!dates.end),
         tag: 'Fechas',
-        name: `De ${transformDateToText(dates.start)} hasta ${transformDateToText(dates.end)}`,
+        name: `Desde ${transformDateToText(dates.start)} hasta ${transformDateToText(dates.end)}`,
         handleClick: () => {
           dates = initialStateDates
           params.page = 1

@@ -109,7 +109,7 @@ function closeImage() {
         </DrawerFooter>
       </div>
       <picture v-if="!!selectedImage"
-        class="absolute top-0 left-0 w-screen h-screen flex items-center justify-center backdrop-blur-md z-50"
+        class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center backdrop-blur-md z-50"
         @click.stop="closeImage">
         <img :src="selectedImage" class="max-h-[98vh] rounded-2xl mx-auto" alt="documento"
           :style="{ viewTransitionName: transitionName }">
