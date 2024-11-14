@@ -4,50 +4,44 @@ import { ArrowDownUp, ChartPie, ChartBar } from 'lucide-vue-next'
 import { keyNames } from '@/enums/keyNames'
 import { LineChart } from '@/components/ui/chart-line'
 import type { DashboardI } from '@/types/types'
-
-const data: DashboardI = {
-  housingState: [
-    {
-      housing: 'Hos. Arequipa',
-      data: [
-        { name: 'Cuartos ocupados', total: 8 },
-        { name: 'Cuartos disponibles', total: 10 },
-        { name: 'Cuartos inactivos', total: 2 },
-      ]
-    },
-    {
-      housing: 'Llamus',
-      data: [
-        { name: 'Cuartos ocupados', total: 6 },
-        { name: 'Cuartos disponibles', total: 2 },
-        { name: 'Cuartos inactivos', total: 1 },
-      ]
-    },
-  ],
-  incomeState: [
-    { month: 'Enero', income: Math.floor(Math.random() * (1000 - 300 + 1)) + 300 },
-    { month: 'Abril', income: Math.floor(Math.random() * (1000 - 300 + 1)) + 300 },
-    { month: 'Agosto', income: Math.floor(Math.random() * (1000 - 300 + 1)) + 300 },
-    { month: 'Diciembre', income: Math.floor(Math.random() * (1000 - 300 + 1)) + 300 },
-  ]
-}
-
-const formatedData = data.incomeState.map(item => ({
-  month: item.month,
-  Ingreso: item.income,
-}))
+import { computed, onMounted, ref } from 'vue'
+import { fetchData } from '@/utils/utils'
+import { apiNames } from '@/enums/apiNames'
 
 const formatCurrency = (tick: any) => {
   return typeof tick === 'number'
     ? tick.toLocaleString(keyNames.lang, { style: 'currency', currency: 'PEN' })
-    : '';
+    : ''
 }
 
-// const payments = ref<HousingPaymentI[]>([])
+const formattedDate = (date: string) => {
+  return new Date(date).toLocaleDateString(keyNames.lang, {
+    year: 'numeric',
+    month: 'long',
+  })
+}
 
-// onMounted(async () => {
-//   payments.value = (await fetchData<HousingPaymentI[]>(`${apiNames.housing_payment}/${apiNames.get_rent_expire}`)).data
-// })
+const dashbord = ref<DashboardI>()
+
+const formatedData = computed(() => {
+  if (!dashbord.value) return {
+    expectedAmount: 0,
+    tenancies: 0,
+    housingState: [],
+    incomeState: []
+  }
+  return {
+    ...dashbord.value,
+    incomeState: dashbord.value.incomeState.map(item => ({
+      month: formattedDate(item.month),
+      Ingreso: parseFloat(item.income),
+    }))
+  }
+})
+
+onMounted(async () => {
+  dashbord.value = (await fetchData<DashboardI>(`${apiNames.dashboard}/${apiNames.list_action}`)).data
+})
 </script>
 
 <template>
@@ -66,7 +60,7 @@ const formatCurrency = (tick: any) => {
         <strong class="capitalize font-bold">{{ new Date().toLocaleString(keyNames.lang, { month: 'long' }) }}</strong>
       </h3>
       <span class="text-4xl font-bold text-teal-600 dark:text-teal-400 mt-2">
-        S/. 2000.00
+        {{ formatedData.expectedAmount.toLocaleString(keyNames.lang, { style: 'currency', currency: 'PEN' }) }}
       </span>
       <div class="mt-4 flex items-center text-sm text-slate-600 dark:text-slate-400">
         <ArrowDownUp class="h-5 w-5 mr-1 text-teal-500 dark:text-teal-300" />
@@ -81,7 +75,7 @@ const formatCurrency = (tick: any) => {
         <strong class="capitalize font-bold">{{ new Date().toLocaleString(keyNames.lang, { month: 'long' }) }}</strong>
       </h3>
       <span class="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-2">
-        50
+        {{ formatedData.tenancies }}
       </span>
       <div class="mt-4 flex items-center text-sm text-slate-600 dark:text-slate-400">
         <ChartBar class="h-5 w-5 mr-1 text-indigo-500 dark:text-indigo-300" />
@@ -91,22 +85,27 @@ const formatCurrency = (tick: any) => {
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6">
-    <DonutChart v-for="(chart, index) in data.housingState" :key="index" index="name" :category="'total'"
+    <DonutChart v-for="(chart, index) in formatedData.housingState" :key="index" index="name" :category="'total'"
       :data="chart.data" :type="'pie'"
-      class="w-full h-[60vh] rounded-lg shadow-lg border-b-yellow-100 border-2 bg-white dark:bg-slate-800 pb-20"
+      class="w-full h-[60vh] rounded-lg shadow-lg border-green-500 dark:border-green-400 border-l-4 bg-white dark:bg-slate-800 pb-20"
       :colors="[
-        'rgba(52, 152, 219, 0.8)',
-        'rgba(46, 204, 113, 0.8)',
-        'rgba(135, 206, 235, 0.8)',
+        'rgba(46, 204, 113, 0.6)',
+        'rgba(52, 152, 219, 0.6)',
+        'rgba(135, 206, 235, 0.6)',
       ]">
-      <h4 class="text-xl font-bold text-teal-700 dark:text-teal-300 text-center my-4">Estado de las habitaciones
-        en {{ chart.housing }}</h4>
+      <h4 class="text-xl font-semibold text-green-700 dark:text-green-400 text-center my-4">Estado de las habitaciones
+        en
+        <strong class="capitalize font-bold">
+          {{ chart.housing }}
+        </strong>
+      </h4>
     </DonutChart>
-    <LineChart :data="formatedData" index="month" :categories="['Ingreso']" :showLegend="false"
+    <LineChart :data="formatedData.incomeState" index="month" :categories="['Ingreso']" :showLegend="false"
       :y-formatter="formatCurrency"
-      class="col-span-full rounded-lg shadow-lg border-b-yellow-100 border-2 bg-white dark:bg-slate-800 pb-20"
+      class="col-span-full rounded-lg shadow-lg border-sky-500 dark:border-sky-400 border-l-4 bg-white dark:bg-slate-800 pb-20"
       :colors="['rgba(52, 152, 219, 0.8)']">
-      <h4 class="text-xl font-bold text-teal-700 dark:text-teal-300 text-center my-4">Ingresos por Cuatrimestre</h4>
+      <h4 class="text-xl font-bold text-sky-700 dark:text-sky-300 text-center my-4">Ingresos por Cuatrimestre</h4>
     </LineChart>
   </section>
+
 </template>

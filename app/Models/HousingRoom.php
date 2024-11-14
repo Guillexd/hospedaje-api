@@ -19,14 +19,25 @@ class HousingRoom extends Model
     protected static function booted(): void
     {
         static::addGlobalScope('active', function (Builder $builder) {
-            $builder->whereHas('housing', function (Builder $query) {
-                $query->where('is_active', 1);
+            $builder->where(function (Builder $query): void {
+                $query->whereHas('housing', function (Builder $query) {
+                    $query->where('is_active', 1);
+                })
+                    ->orWhereNull('housing_id');
             });
         });
     }
     public function scopeActive(Builder $query): void
     {
         $query->where('is_active', 1);
+    }
+    public function scopeAvailable(Builder $query): void
+    {
+        $query->where('is_available', 1);
+    }
+    public function scopeNotAvailable(Builder $query): void
+    {
+        $query->where('is_available', 0);
     }
     public function housing(): BelongsTo
     {

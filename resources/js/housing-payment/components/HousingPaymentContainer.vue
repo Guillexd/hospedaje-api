@@ -248,7 +248,7 @@ const columns = [
       @reset:initial-form="resetInitialHousingPaymentForm" />
     <HousingPaymentModal :form="form" @reset="closeHousingPaymentDialog" />
 
-    <Menubar class="flex flex-col sm:flex-row justify-center gap-y-2 mt-3 shadow-sm dark:bg-slate-900 h-28 sm:h-14">
+    <Menubar class="flex flex-col sm:flex-row justify-center gap-y-2 mt-3 shadow-sm dark:bg-slate-900 py-2">
       <MenubarMenu>
         <MenubarTrigger as-child>
           <Button variant="outline" size="lg" class="dark:text-slate-200">Fecha de alquiler</Button>

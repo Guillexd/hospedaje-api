@@ -18,7 +18,7 @@ class HousingRoomCollection extends ResourceCollection
             return [
                 'id' => $housing_room->id,
                 'room_number' => $housing_room->room_number,
-                'housing' => $housing_room->housing->name,
+                'housing' => $housing_room->housing->name ?? 'Sin propiedad',
                 'is_active' => $housing_room->is_active,
                 'is_available' => $housing_room->is_available,
 

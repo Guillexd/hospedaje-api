@@ -84,14 +84,16 @@ function closeImage() {
               <span class="font-medium">{{ housingPayment.housing }}</span>
               <span class="text-gray-700">Habitación {{ housingPayment.housing_room }}</span>
             </div>
-            <div class="text-gray-700 font-semibold">
-              <p>{{ getLocaleDate(housingPayment.rental_start_date) }} hasta {{
-                getLocaleDate(housingPayment.rental_end_date) }}</p>
-            </div>
+            <p class="text-gray-700 font-semibold text-center">
+              {{ getLocaleDate(housingPayment.rental_start_date) }}
+              hasta
+              {{ getLocaleDate(housingPayment.rental_end_date) }}
+            </p>
             <div class="flex justify-between">
               <span class="font-medium">Pago:</span>
               <span class="text-gray-700 font-bold">{{ housingPayment.payment.toLocaleString(keyNames.lang, {
-                style: "currency", currency: "PEN" }) }}</span>
+                style: "currency", currency: "PEN"
+              }) }}</span>
             </div>
             <div class="flex justify-between font-bold">
               <span class="font-medium">Estado:</span>

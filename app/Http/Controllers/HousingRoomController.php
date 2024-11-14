@@ -23,6 +23,11 @@ class HousingRoomController extends Controller
             if (isset($request->active)) {
                 $query->active();
             }
+            if (isset($request->available)) {
+                $query->available();
+            } elseif(isset($request->not_available)) {
+                $query->notAvailable();
+            }
         })->paginate($request->limit ?? 20);
         return new HousingRoomCollection($housing_room);
     }

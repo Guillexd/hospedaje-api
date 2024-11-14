@@ -27,8 +27,8 @@ class HousingPaymentController extends Controller
             $queryBuilder->select('id', 'name');
         }])->where(function (Builder $query) use ($request) {
             if (isset($request->finishDate) && isset($request->startDate)) {
-                $query->where('rental_start_date', '>=', $request->startDate)
-                    ->where('rental_end_date', '<=', $request->finishDate);
+                $query->whereDate('rental_start_date', '>=', $request->startDate)
+                    ->whereDate('rental_end_date', '<=', $request->finishDate);
             }
             if (isset($request->searchInput)) {
                 $query->whereHas('tenancy', function (Builder $query) use ($request) {
@@ -66,8 +66,12 @@ class HousingPaymentController extends Controller
 
     public function update(StoreHousingPaymentRequest $request): Response
     {
-        HousingPayment::findOrFail($request->id)->update($request->validated());
-
+        $housing_payment = HousingPayment::findOrFail($request->id);
+        if (is_null($housing_payment->payment_date)) {
+            HousingRoom::findOrFail($housing_payment->housing_room_id)->update(['is_available' => 1]);
+            HousingRoom::findOrFail($request->housing_room_id)->update(['is_available' => 0]);
+        }
+        $housing_payment->update($request->validated());
         return response()->noContent();
     }
 

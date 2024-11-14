@@ -9,6 +9,7 @@ export enum apiNames {
   get_all = 'get-all',
   get_active = 'get-active',
   change_status = '/api/generic/change-status',
+  dashboard = '/api/dashboard',
   users = '/api/users',
   housing = '/api/housing',
   get_rent_expire = 'get-rent-expire',

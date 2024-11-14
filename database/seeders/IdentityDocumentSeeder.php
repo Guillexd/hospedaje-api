@@ -13,14 +13,17 @@ class IdentityDocumentSeeder extends Seeder
     public function run(): void
     {
         IdentityDocument::create([
+            'id' => 1,
             'abbreviation' => 'DNI',
             'description' => 'Documento Nacional de Identidad',
         ]);
         IdentityDocument::create([
+            'id' => 2,
             'abbreviation' => 'RUC',
             'description' => 'Registro Unico de Contribuyentes',
         ]);
         IdentityDocument::create([
+            'id' => 3,
             'abbreviation' => 'Carnet de extranjería',
             'description' => 'Carnet de extranjería',
         ]);

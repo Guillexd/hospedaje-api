@@ -11,7 +11,7 @@ import {
 } from '../../components/ui/dialog'
 import { Switch } from '@/components/ui/switch'
 import Header from '../../Presentation/Header.vue'
-import { useFetchHousingRoom } from '../composables/useFetchHousingRoom'
+import { useFetchHousingRoom, type RoomState } from '../composables/useFetchHousingRoom'
 import { keyNames } from '../../enums/keyNames'
 import { apiNames } from '../../enums/apiNames'
 import TablePresentation from '../../Presentation/TablePresentation.vue'
@@ -22,11 +22,13 @@ import { useForm } from 'vee-validate'
 import { submitToastHandler, useChangeStatus } from '@/utils/utils'
 import { tableNames } from '@/enums/tableNames'
 import type { HousingRoomState } from '@/types/types'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 const params = reactive({
   page: 1,
   limit: window.innerWidth < 768 ? 5 : 10,
   searchParam: '',
+  roomState: 'all' as RoomState,
 })
 
 const { isFetching, data, meta } = useFetchHousingRoom(keyNames.housing_room, params)
@@ -145,6 +147,20 @@ const columns = [
     <Header :icon="BedSingle" title="Gestión de habitaciones" :isFetching="isFetching"
       @reset:initial-form="resetInitialHousingRoomForm" />
     <HousingRoomModal :form="form" @reset="closeHousingRoomDialog" />
+
+    <section class="flex flex-col sm:flex-row justify-center gap-y-2 mt-3 py-3 shadow-sm dark:bg-slate-900 rounded-lg">
+      <ToggleGroup type="single" class="dark:text-slate-200" v-model:model-value="params.roomState">
+        <ToggleGroupItem value="all" aria-label="Toggle bold">
+          Todas
+        </ToggleGroupItem>
+        <ToggleGroupItem value="available">
+          Disponibles
+        </ToggleGroupItem>
+        <ToggleGroupItem value="not_available">
+          Ocupadas
+        </ToggleGroupItem>
+      </ToggleGroup>
+    </section>
 
     <FilterBarPresentation :render="!!params.searchParam" :filters="[
       {

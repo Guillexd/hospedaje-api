@@ -16,8 +16,9 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             HousingSeeder::class,
             IdentityDocumentSeeder::class,
-            TenancySeeder::class,
             HousingRoomSeeder::class,
+            TenancySeeder::class,
+            HousingPaymentSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedTokenSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GenericController;
 use App\Http\Controllers\HousingController;
 use App\Http\Controllers\HousingPaymentController;
@@ -19,6 +20,10 @@ Route::post('/login', [AuthenticatedTokenSessionController::class, 'store'])
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request): UserAuthResource {
         return new UserAuthResource($request->user());
+    });
+
+    Route::prefix('dashboard')->controller(DashboardController::class)->group(function () {
+        Route::get('/list', 'list');
     });
 
     Route::prefix('users')->controller(UsersController::class)->group(function () {

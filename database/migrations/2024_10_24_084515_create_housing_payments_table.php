@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('housing_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('housing_room_id')->nullable()->constrained();
+            $table->foreignId('housing_room_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('tenancy_id')->constrained()->cascadeOnDelete();
             $table->decimal('payment', 8, 2);
             $table->dateTimeTz('rental_start_date');

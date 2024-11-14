@@ -10,6 +10,7 @@ export const initialAuthState: AuthUserI = {
   email: '',
   dni: '',
   phone: '',
+  permissions: []
 }
 
 export const useAuthStore = defineStore('auth', () => {

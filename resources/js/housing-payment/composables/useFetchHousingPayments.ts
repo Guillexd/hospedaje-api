@@ -11,7 +11,6 @@ export function useFetchHousingPayments(housingPaymentKey: string, params: React
   data: Ref<HousingPaymentI[]>
   meta: Ref<PaginationMeta | null>
 } {
-
   const fetchHousingPayments = () => fetchData<HousingPaymentI[]>(`${apiNames.housing_payment}/${apiNames.list_action}?page=${params.page}&limit=${params.limit}&searchInput=${params.searchParam}&startDate=${params.startDate}&finishDate=${params.finishDate}${params.paymentState === 'rent_debtors' ? '&rent_debtors=1' : params.paymentState === 'rent_payers' ? '&rent_payers=1' : ''}`)
 
   const { data: dataProps, ...props } = useFetchData<HousingPaymentI[]>(

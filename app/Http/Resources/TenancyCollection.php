@@ -18,7 +18,7 @@ class TenancyCollection extends ResourceCollection
             return [
                 'id' => $tenancy->id,
                 'name' => $tenancy->name,
-                'document_type' => $tenancy->identity_document?->abbreviation,
+                'document_type' => $tenancy->identity_document->abbreviation ?? 'Sin documento',
                 'document_number' => $tenancy->document_number,
                 'first_document_image_url' => $tenancy->first_document_image_url,
                 'second_document_image_url' => $tenancy->second_document_image_url,

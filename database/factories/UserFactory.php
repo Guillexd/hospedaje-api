@@ -28,9 +28,9 @@ class UserFactory extends Factory
             'birth_date' => fake()->dateTimeBetween('-60 years', '-18 years'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'dni' => fake()->numberBetween(10000000, 99999999),
+            'dni' => fake()->unique()->numberBetween(10000000, 99999999),
             'phone' => fake()->numberBetween(900000000, 999999999),
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Elmejor@89.'),
             'remember_token' => Str::random(10),
         ];
     }

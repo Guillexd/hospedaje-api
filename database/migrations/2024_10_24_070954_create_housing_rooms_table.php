@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('housing_rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('housing_id')->nullable()->constrained();
+            $table->foreignId('housing_id')->nullable()->constrained()->onDelete('set null');
             $table->string('room_number', 3);
             $table->unique(['housing_id', 'room_number']);
             $table->boolean('is_active')->default(true);

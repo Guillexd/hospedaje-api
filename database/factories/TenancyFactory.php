@@ -19,8 +19,8 @@ class TenancyFactory extends Factory
         return [
             'identity_document_id' => fake()->numberBetween(1, 2),
             'name' => fake()->name(),
-            'document_number' => fake()->numberBetween(10000000, 99999999),
-            'description' => fake()->realText(50),
+            'document_number' => fake()->unique()->numberBetween(10000000, 99999999),
+            'description' => fake()->realText(200),
             'phone' => fake()->numberBetween(900000000, 999999999),
         ];
     }

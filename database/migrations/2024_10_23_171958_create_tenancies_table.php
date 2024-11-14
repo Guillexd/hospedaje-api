@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tenancies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('identity_document_id')->nullable()->constrained();
+            $table->foreignId('identity_document_id')->nullable()->constrained()->onDelete('set null');
             $table->string('name', 50);
             $table->string('document_number', 20)->unique()->nullable();
             $table->string('first_document_image_url')->nullable();

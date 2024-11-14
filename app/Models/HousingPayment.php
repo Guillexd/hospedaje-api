@@ -24,7 +24,7 @@ class HousingPayment extends Model
     {
         $query->whereNull('payment_date')
             ->whereDate('rental_end_date', '>=', now())
-            ->whereRaw('DATEDIFF(rental_end_date, ?) <= 7', [now()]);
+            ->whereDate('rental_end_date', '<=', now()->addDays(7));
     }
 
     public function tenancy(): BelongsTo
