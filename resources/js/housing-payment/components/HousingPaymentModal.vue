@@ -201,7 +201,7 @@ watch(housingPaymentId, (newValue) => {
 
               <PopoverContent class="w-[370px] sm:w-64 p-0">
                 <Command :key="keyHousingRoom" v-model="valueHousingRoom" class="p-0">
-                  <CommandInput class="w-full px-4 py-2" placeholder="Busca al inquilino..."
+                  <CommandInput class="w-full px-4 py-2" placeholder="Busca la habitación..."
                     @input="($event) => paramsHousingRoom.searchParam = $event.target.value" />
                   <X v-if="valueHousingRoom.length > 0 || paramsHousingRoom.searchParam.length > 0"
                     class="absolute right-5 top-3" :size="20" @click="() => {

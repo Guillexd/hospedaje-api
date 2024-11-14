@@ -57,5 +57,7 @@ export const useAuthStore = defineStore('auth', () => {
     console.log(value.permissions.includes(Permissions.see_dashboard as never))
   })
 
+  // falta hacer el crud de roles y permisos (ten consideraciones com oqeu no puedse eliiminar ni agregar permisos, o ver que pasa si eliminas roles)
+
   return { user, isAuthenticated, setUser, checkAuth, logOut }
 })
