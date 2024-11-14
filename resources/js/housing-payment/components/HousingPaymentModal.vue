@@ -55,7 +55,7 @@ const housingPaymentParams = computed(() => ({
 
 const { isPending, mutateAsync } = useModifyHousingPayment(housingPaymentParams)
 
-const handleLoginSubmit = props.form.handleSubmit((values: HousingPaymentState) => {
+const handleHousingPaymentSubmit = props.form.handleSubmit((values: HousingPaymentState) => {
   return submitToastHandler<null>(
     mutateAsync(values),
     `${!housingPaymentId.value ? 'Agregando' : 'Editando'}...`,
@@ -106,7 +106,7 @@ function closeHousingPaymentDialog(): void {
 }
 
 function changeParams(state: boolean) {
-  if (state) {
+  if (!!state) {
     paramsTenancies.searchParam = props.form.values.tenancy_name
     valueTenancy.value = props.form.values.tenancy_name
     paramsHousingRoom.searchParam = props.form.values.housing_room
@@ -136,7 +136,7 @@ watch(housingPaymentId, (newValue) => {
       </DialogDescription>
     </DialogHeader>
 
-    <form @submit="handleLoginSubmit" keep-values>
+    <form @submit="handleHousingPaymentSubmit" keep-values>
       <section class="flex flex-col sm:grid grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto max-h-[71vh] p-1">
         <FormField v-slot="{ componentField }" name="tenancy_id">
           <FormItem>

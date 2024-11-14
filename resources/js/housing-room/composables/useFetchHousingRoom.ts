@@ -5,7 +5,7 @@ import { apiNames } from '@/enums/apiNames'
 
 export type RoomState = 'all' | 'available' | 'not_available'
 
-export function useFetchHousingRoom(housingKey: string, params: Reactive<{ page: number, limit: number, searchParam: string, active?: number, roomState: RoomState }>): {
+export function useFetchHousingRoom(housingKey: string, params: Reactive<{ page: number, limit: number, searchParam: string, active?: number, roomState?: RoomState }>): {
   isFetching: Ref<boolean>
   isPlaceholderData: Ref<boolean>
   data: Ref<HousingRoomI[]>

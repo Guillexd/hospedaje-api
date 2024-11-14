@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
+use Illuminate\Contract\Auth\Authenticatable;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -60,10 +61,10 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
 
-        $user = User::where('email', $this->email)->first();
+        $user = Auth::user();
 
-        if (!$user->is_active) {
-            $this->logoutOrRevokeToken();
+        if (!$user || !$user->is_active) {
+            $this->logoutOrRevokeToken($user);
             throw ValidationException::withMessages([
                 'email' => ['Está cuenta ha sido desactivada.'],
             ]);
@@ -101,14 +102,14 @@ class LoginRequest extends FormRequest
         return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 
-    protected function logoutOrRevokeToken(): void
+    protected function logoutOrRevokeToken($user): void
     {
-        if (Auth::check()) {
-            Auth::logout();
+        if (Auth::guard('web')->check()) {
+            Auth::guard('web')->logout();
         }
 
-        if (Auth::user() && Auth::user()->tokens) {
-            Auth::user()->tokens->each(function ($token) {
+        if ($user && $user->tokens) {
+            $user->tokens->each(function ($token) {
                 $token->delete();
             });
         }

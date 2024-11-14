@@ -42,6 +42,7 @@ class StoreHousingRoomRequest extends FormRequest
                     })
                     ->ignore($this->id),
             ],
+            'is_available' => ['required', 'boolean'],
         ];
     }
     public function attributes()
@@ -49,6 +50,7 @@ class StoreHousingRoomRequest extends FormRequest
         return [
             'housing_id' => 'propiedad',
             'room_number' => 'habitación',
+            'is_available' => 'disponibilidad',
         ];
     }
 }

@@ -44,16 +44,16 @@ const updateDrawerState = (state: boolean) => {
         Ver
       </DropdownMenuItem>
       <DialogTrigger class="w-full">
-        <DropdownMenuItem @click="updateFormTenancy" class="flex items-center gap-x-2 text-sky-800 py-2 cursor-pointer">
+        <DropdownMenuItem @click="updateFormTenancy" class="flex items-center gap-x-2 text-sky-700 dark:text-sky-500 py-2 cursor-pointer">
           <SquarePen class="w-5 h-5" />
           Editar
         </DropdownMenuItem>
       </DialogTrigger>
-      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-red-700 py-2 cursor-pointer" :href="callPerson(tenancy.phone)">
+      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-red-700 dark:text-red-500 py-2 cursor-pointer" :href="callPerson(tenancy.phone)">
         <PhoneOutgoing class="w-5 h-5" />
         Llamar
       </DropdownMenuItem>
-      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-green-800 py-2 cursor-pointer"
+      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-green-700 dark:text-green-500 py-2 cursor-pointer"
         :href="messagePerson(tenancy.phone, '?text=Buen%20día')" target="_blank">
         <MessageCircleMore class="w-5 h-5" />
         Whatsapp

@@ -52,7 +52,7 @@ const tenancyParams = computed(() => ({
 
 const { isPending, mutateAsync } = useModifyTenancy(tenancyParams)
 
-const handleLoginSubmit = props.form.handleSubmit((values: TenancyState) => {
+const handleTenancySubmit = props.form.handleSubmit((values: TenancyState) => {
   return submitToastHandler<null>(
     mutateAsync(values),
     `${!tenancyId.value ? 'Agregando' : 'Editando'}...`,
@@ -94,7 +94,7 @@ onMounted(async () => {
       </DialogDescription>
     </DialogHeader>
 
-    <form @submit="handleLoginSubmit" keep-values>
+    <form @submit="handleTenancySubmit" keep-values>
       <section class="flex flex-col sm:grid grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto max-h-[71vh] p-1">
         <FormField v-slot="{ componentField }" name="identity_document_id">
           <FormItem>

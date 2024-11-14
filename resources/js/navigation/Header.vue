@@ -8,6 +8,7 @@ import {
   Moon,
   Phone,
   User,
+  UserPen,
 } from 'lucide-vue-next'
 import {
   DropdownMenu,
@@ -118,7 +119,7 @@ onMounted(async () => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <button class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-            <img class="object-cover w-full h-full" src="/assets/img/profile.avif" alt="tú avatar">
+            <img class="object-cover w-full h-full" src="/assets/img/profile.avif" alt="tu avatar">
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent class="w-56">
@@ -140,6 +141,15 @@ onMounted(async () => {
             <DropdownMenuItem>
               <Phone class="mr-2 h-4 w-4" />
               <span>{{ authStore.user.phone }}</span>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Roles de usuario</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem v-for="role in authStore.user.roles">
+              <UserPen class="mr-2" :size="19" />
+              <span>{{ role }}</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

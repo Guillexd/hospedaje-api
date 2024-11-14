@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Navigation from '@/navigation/Navigation.vue'
 import DashboardView from '@/dashboard/views/DashboardView.vue'
 import { initialAuthState, useAuthStore } from '@/stores/auth'
+import { toast } from 'vue-sonner'
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -108,6 +109,9 @@ window.axios.interceptors.response.use(
       const authStore = useAuthStore()
       authStore.setUser(initialAuthState)
       router.push({ name: 'Login' })
+    }
+    if (error.response?.status === 403 && error.response?.config.method === 'get') {
+      toast.info('No tiene permisos para ir a esta ruta.')
     }
     return Promise.reject(error)
   }

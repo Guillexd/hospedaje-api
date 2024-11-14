@@ -98,17 +98,17 @@ const handleClick = () => {
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Opciones</DropdownMenuLabel>
       <DropdownMenuItem v-if="!housingPayment.payment_date"
-        class="flex items-center gap-x-2 text-amber-600 py-2 cursor-pointer" @click="openAlertDialog(1)">
+        class="flex items-center gap-x-2 text-amber-700 dark:text-amber-500 py-2 cursor-pointer" @click="openAlertDialog(1)">
         <FilePlus2 class="w-5 h-5" />
         Cobrar y agregar alquiler
       </DropdownMenuItem>
       <DropdownMenuItem v-if="!housingPayment.payment_date"
-        class="flex items-center gap-x-2 text-amber-700 py-2 cursor-pointer" @click="openAlertDialog(2)">
+        class="flex items-center gap-x-2 text-yellow-700 dark:text-yellow-500 py-2 cursor-pointer" @click="openAlertDialog(2)">
         <CircleSlash class="w-5 h-5" />
         Solo cobrar
       </DropdownMenuItem>
       <DropdownMenuItem v-if="!!housingPayment.payment_date"
-        class="flex items-center gap-x-2 text-rose-700 py-2 cursor-pointer" @click="openAlertDialog(3)">
+        class="flex items-center gap-x-2 text-rose-700 dark:text-rose-500 py-2 cursor-pointer" @click="openAlertDialog(3)">
         <Ban class="w-5 h-5" />
         Cancelar cobro
       </DropdownMenuItem>
@@ -118,17 +118,17 @@ const handleClick = () => {
       </DropdownMenuItem>
       <DialogTrigger class="w-full">
         <DropdownMenuItem @click="updateFormHousingPayment"
-          class="flex items-center gap-x-2 text-sky-800 py-2 cursor-pointer">
+          class="flex items-center gap-x-2 text-sky-700 dark:text-sky-500 py-2 cursor-pointer">
           <SquarePen class="w-5 h-5" />
           Editar
         </DropdownMenuItem>
       </DialogTrigger>
-      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-red-700 py-2 cursor-pointer"
+      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-red-700 dark:text-red-500 py-2 cursor-pointer"
         :href="callPerson(housingPayment.tenancy_phone)">
         <PhoneOutgoing class="w-5 h-5" />
         Llamar
       </DropdownMenuItem>
-      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-green-800 py-2 cursor-pointer"
+      <DropdownMenuItem as="a" class="flex items-center gap-x-2 text-green-700 dark:text-green-500 py-2 cursor-pointer"
         :href="messagePerson(housingPayment.tenancy_phone, '?text=Buen%20día')" target="_blank">
         <MessageCircleMore class="w-5 h-5" />
         Whatsapp

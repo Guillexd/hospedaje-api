@@ -29,6 +29,7 @@ import { fetchData, submitToastHandler } from '../../utils/utils'
 import { useModifyHousingRoom } from '../composables/useModifyHousingRoom'
 import { apiNames } from '../../enums/apiNames'
 import { computed, onMounted, ref } from 'vue'
+import { ListCheck, Lock } from 'lucide-vue-next'
 
 const props = defineProps<{
   form: FormContext<HousingRoomState>
@@ -48,7 +49,7 @@ const housingRoomParams = computed(() => ({
 
 const { isPending, mutateAsync } = useModifyHousingRoom(housingRoomParams)
 
-const handleLoginSubmit = props.form.handleSubmit((values: HousingRoomState) => {
+const handleHousingRoomSubmit = props.form.handleSubmit((values: HousingRoomState) => {
   return submitToastHandler<null>(
     mutateAsync(values),
     `${!housingRoomId.value ? 'Agregando' : 'Editando'}...`,
@@ -83,7 +84,7 @@ onMounted(async () => {
       </DialogDescription>
     </DialogHeader>
 
-    <form @submit="handleLoginSubmit" keep-values>
+    <form @submit="handleHousingRoomSubmit" keep-values>
       <section class="flex flex-col sm:grid grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto max-h-[71vh] p-1">
         <FormField v-slot="{ componentField }" name="housing_id">
           <FormItem>
@@ -111,6 +112,39 @@ onMounted(async () => {
             <FormControl>
               <Input v-bind="componentField" autocomplete="off" />
             </FormControl>
+            <FormMessage />
+          </FormItem>
+        </FormField>
+        <FormField v-slot="{ componentField }" name="is_available">
+          <FormItem class="col-span-full">
+            <FormLabel>Disponibilidad</FormLabel>
+            <Select v-bind="componentField" :modelValue="String(componentField.modelValue)">
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecciona la disponibilidad" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="1">
+                    <div class="flex items-center gap-1 text-cyan-600 dark:text-cyan-500">
+                      <ListCheck />
+                      <span class="font-bold text-sm">
+                        Disponible
+                      </span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="0">
+                    <div class="flex items-center gap-1 text-gray-500">
+                      <Lock />
+                      <span class="font-bold text-sm">
+                        Ocupado
+                      </span>
+                    </div>
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <FormMessage />
           </FormItem>
         </FormField>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DonutChart } from '@/components/ui/chart-donut'
-import { ArrowDownUp, ChartPie, ChartBar } from 'lucide-vue-next'
+import { ArrowDownUp, ChartPie, BookUser } from 'lucide-vue-next'
 import { keyNames } from '@/enums/keyNames'
 import { LineChart } from '@/components/ui/chart-line'
 import type { DashboardI } from '@/types/types'
@@ -78,7 +78,7 @@ onMounted(async () => {
         {{ formatedData.tenancies }}
       </span>
       <div class="mt-4 flex items-center text-sm text-slate-600 dark:text-slate-400">
-        <ChartBar class="h-5 w-5 mr-1 text-indigo-500 dark:text-indigo-300" />
+        <BookUser class="h-6 w-6 mr-1 text-indigo-500 dark:text-indigo-300" />
         <span class="text-slate-500 dark:text-slate-300">Inquilinos activos</span>
       </div>
     </div>
@@ -89,9 +89,9 @@ onMounted(async () => {
       :data="chart.data" :type="'pie'"
       class="w-full h-[60vh] rounded-lg shadow-lg border-green-500 dark:border-green-400 border-l-4 bg-white dark:bg-slate-800 pb-20"
       :colors="[
-        'rgba(46, 204, 113, 0.6)',
-        'rgba(52, 152, 219, 0.6)',
-        'rgba(135, 206, 235, 0.6)',
+        'rgba(46, 204, 113, 0.7)',
+        'rgba(52, 152, 219, 0.7)',
+        'rgba(135, 206, 235, 0.7)',
       ]">
       <h4 class="text-xl font-semibold text-green-700 dark:text-green-400 text-center my-4">Estado de las habitaciones
         en

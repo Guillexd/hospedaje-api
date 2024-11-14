@@ -105,7 +105,7 @@ const deleteRows = () => {
       if (typeof err === 'object') {
         return err.message
       }
-      return 'Hubo un error en el sistema.'
+      return err
     },
   )
 }

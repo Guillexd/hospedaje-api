@@ -1,8 +1,10 @@
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { type AxiosResponse } from 'axios'
 import { toast } from 'vue-sonner'
 import type { ApiResponse, AuthUserI } from '@/types/types'
+import { Permissions } from '@/enums/permissions'
+import { apiNames } from '@/enums/apiNames'
 
 export const initialAuthState: AuthUserI = {
   id: undefined,
@@ -10,7 +12,8 @@ export const initialAuthState: AuthUserI = {
   email: '',
   dni: '',
   phone: '',
-  permissions: []
+  roles: [],
+  permissions: [],
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -22,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function checkAuth(loading: string, successMessage: string, errorMessage: string, onSuccess: () => void) {
-    return toast.promise(window.axios.get('/api/user'),
+    return toast.promise(window.axios.get(apiNames.user),
       {
         loading,
         success: (res: AxiosResponse<ApiResponse<AuthUserI>>) => {
@@ -36,7 +39,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function logOut(loading: string, successMessage: string, errorMessage: string, onSuccess: () => void) {
-    return toast.promise(window.axios.post('/logout'),
+    return toast.promise(window.axios.post(apiNames.logout),
       {
         loading,
         success: () => {
@@ -48,6 +51,11 @@ export const useAuthStore = defineStore('auth', () => {
       }
     )
   }
+
+  watch(user, (value) => {
+    console.log(value)
+    console.log(value.permissions.includes(Permissions.see_dashboard as never))
+  })
 
   return { user, isAuthenticated, setUser, checkAuth, logOut }
 })

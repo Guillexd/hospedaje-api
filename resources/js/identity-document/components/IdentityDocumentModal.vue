@@ -40,7 +40,7 @@ const identityDocumentParams = computed(() => ({
 
 const { isPending, mutateAsync } = useModifyIdentityDocument(identityDocumentParams)
 
-const handleLoginSubmit = props.form.handleSubmit((values: IdentityDocumentState) => {
+const handleIdentityDocumentSubmit = props.form.handleSubmit((values: IdentityDocumentState) => {
   return submitToastHandler<null>(
     mutateAsync(values),
     `${!identityDocumentId.value ? 'Agregando' : 'Editando'}...`,
@@ -69,7 +69,7 @@ const handleLoginSubmit = props.form.handleSubmit((values: IdentityDocumentState
       </DialogDescription>
     </DialogHeader>
 
-    <form @submit="handleLoginSubmit" keep-values>
+    <form @submit="handleIdentityDocumentSubmit" keep-values>
       <section class="flex flex-col sm:grid grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto max-h-[71vh] p-1">
         <FormField v-slot="{ componentField }" name="abbreviation">
           <FormItem>

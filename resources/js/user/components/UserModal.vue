@@ -41,7 +41,7 @@ const userParams = computed(() => ({
 
 const { isPending, mutateAsync } = useModifyUser(userParams)
 
-const handleLoginSubmit = props.form.handleSubmit((values: UserState) => {
+const handleUserSubmit = props.form.handleSubmit((values: UserState) => {
   values.password_confirmation = values.password
   return submitToastHandler<null>(
     mutateAsync(values),
@@ -78,7 +78,7 @@ const searchPersonByDocumentNumber = () => {
       </DialogDescription>
     </DialogHeader>
 
-    <form @submit="handleLoginSubmit" keep-values>
+    <form @submit="handleUserSubmit" keep-values>
       <section class="flex flex-col sm:grid grid-cols-2 gap-x-2 gap-y-1 overflow-y-auto max-h-[71vh] p-1">
         <FormField v-slot="{ componentField }" name="name">
           <FormItem>

@@ -29,6 +29,6 @@ function onDateChange(newRange: DateRange) {
 
 <template>
   <RangeCalendar :default-value="dates" @update:model-value="(value) => onDateChange(value)"
-    calendar-label="Date of birth" :min-value="minValue" :max-value="maxValue" initial-focus
-    class="rounded-md border dark:text-white" :locale="keyNames.lang" />
+    calendar-label="Fechas" :min-value="minValue" :max-value="maxValue" initial-focus
+    class="rounded-md border dark:text-white capitalize" :locale="keyNames.lang" />
 </template>

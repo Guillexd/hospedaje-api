@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\HelperPermission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -14,42 +15,45 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = collect([
-            'view dashboard',
-            'create post',
-            'edit post',
-            'delete post',
-            'publish post',
-            'view user',
-            'create user',
-            'edit user',
-            'delete user',
-            'manage roles',
-        ]);
+        $permissions = HelperPermission::all();
 
-        $permissions->each(function ($permission) {
-            Permission::create(['name' => $permission]);
+        $permissions->each(function ($description, $permission) {
+            Permission::create([
+                'description' => $description,
+                'name' => $permission,
+            ]);
         });
 
-        $admin = Role::create(['name' => 'admin']);
-        $assistant = Role::create(['name' => 'assistant']);
-        $employee = Role::create(['name' => 'employee']);
-
-        $admin->givePermissionTo(Permission::all());
-        $assistant->givePermissionTo([
-            'view dashboard',
-            'create post',
-            'edit post',
-            'delete post',
-            'publish post',
-            'view user',
-            'edit user',
-        ]);
-        $employee->givePermissionTo([
-            'view dashboard',
-            'view user',
+        $roles = collect([
+            'admin' => 'Administrador',
+            'employee' => 'Empleado',
         ]);
 
-        User::first()?->assignRole('admin');
+        $roles->each(function ($description, $role)  use ($roles){
+            $role = Role::create([
+                'description' => $description,
+                'name' => $role,
+            ]);
+
+            switch ($role->name) {
+                case $roles->keys()->get(0):
+                    $role->givePermissionTo(Permission::all());
+                    break;
+
+                case $roles->keys()->get(1):
+                    $role->givePermissionTo([
+                        'see_dashboard',
+                    ]);
+                    break;
+            }
+        });
+
+        User::factory()->create([
+            'email' => 'enrique@gmail.com'
+        ])->assignRole($roles->keys()->get(0));
+
+        User::factory()->create([
+            'email' => 'fredy@gmail.com'
+        ])->assignRole($roles->keys()->get(0));
     }
 }

@@ -36,7 +36,8 @@ export interface AuthUserI extends Pick<AuthState, email> {
   name: string,
   dni: number | string,
   phone: number | string,
-  permissions: []
+  roles: [],
+  permissions: [],
 }
 
 export interface UserI extends Omit<AuthUserI, id | permissions>, Pick<AuthState, password> {
@@ -99,7 +100,7 @@ export interface HousingRoomI {
   is_available: boolean,
 }
 
-export interface HousingRoomState extends Pick<HousingRoomI, id | room_number> {
+export interface HousingRoomState extends Pick<HousingRoomI, room_number | is_available> {
   id?: number,
   housing_id?: number
 }

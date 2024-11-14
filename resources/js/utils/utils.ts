@@ -20,6 +20,9 @@ export function submitToastHandler<T>(handler: Promise<AxiosResponse<ApiResponse
         if (!error.response) {
           return errorf('Problema de conexión. Por favor, verifica tu red.')
         }
+        if (!!error.status && error.status === 403) {
+          return errorf('No tiene permisos para realizar esta acción.')
+        }
         if (!!error.status && error.status >= 500) {
           return error.message
         }
@@ -51,6 +54,7 @@ export function useFetchData<T>(
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
+    retry: 1,
   })
 }
 
@@ -71,7 +75,7 @@ export function useModifyData<T>(keyName: string, params: ComputedRef<AxiosReque
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [keyName] })
-    }
+    },
   })
 }
 

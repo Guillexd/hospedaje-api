@@ -1,4 +1,7 @@
 export enum apiNames {
+  login = '/login',
+  user = '/api/user',
+  logout = '/logout',
   post = 'POST',
   put = 'PUT',
   delete = 'DELETE',

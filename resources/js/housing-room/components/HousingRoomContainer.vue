@@ -2,7 +2,7 @@
 import {
   createColumnHelper,
 } from '@tanstack/vue-table'
-import { BedSingle } from 'lucide-vue-next'
+import { BedSingle, ListCheck, Lock } from 'lucide-vue-next'
 import { h, reactive, ref } from 'vue'
 import DropdownHousingRoomOptions from './DropdownHousingRoomOptions.vue'
 import { Checkbox } from '../../components/ui/checkbox'
@@ -37,6 +37,7 @@ const initialStateHousingRoom: HousingRoomState = {
   id: undefined,
   housing_id: undefined,
   room_number: '',
+  is_available: 1,
 }
 
 const columnHelper = createColumnHelper<typeof data.value[number]>()
@@ -118,7 +119,18 @@ const columns = [
   }),
   columnHelper.accessor('is_available', {
     header: 'Disponibilidad',
-    cell: (info) => h('div', info.getValue() ? 'Disponible' : 'Ocupado'),
+    cell: (info) => {
+      if (!!info.getValue()) {
+        return h('div', { class: 'flex items-center gap-1 text-cyan-600 dark:text-cyan-500' }, [
+          h(ListCheck),
+          h('span', { class: 'font-bold text-sm' }, 'Disponible'),
+        ])
+      }
+      return h('div', { class: 'flex items-center gap-1 text-gray-500' }, [
+        h(Lock),
+        h('span', { class: 'font-bold text-sm' }, 'Ocupado')
+      ])
+    },
   }),
   columnHelper.accessor('is_active', {
     header: 'Estado',

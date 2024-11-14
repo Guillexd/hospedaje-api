@@ -5,7 +5,7 @@ import { apiNames } from '@/enums/apiNames'
 
 export type PaymentState = 'all' | 'rent_debtors' | 'rent_payers'
 
-export function useFetchHousingPayments(housingPaymentKey: string, params: Reactive<{ page: number, limit: number, searchParam: string, startDate: string, finishDate: string, paymentState: PaymentState }>): {
+export function useFetchHousingPayments(housingPaymentKey: string, params: Reactive<{ page: number, limit: number, searchParam: string, startDate: string, finishDate: string, paymentState?: PaymentState }>): {
   isFetching: Ref<boolean>
   isPlaceholderData: Ref<boolean>
   data: Ref<HousingPaymentI[]>

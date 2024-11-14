@@ -33,7 +33,7 @@ const initialStateAuthUser = {
 
 const form = useForm({ initialValues: initialStateAuthUser })
 
-const { isPending, mutateAsync } = useAuth('/login', apiNames.post)
+const { isPending, mutateAsync } = useAuth(apiNames.login, apiNames.post)
 const router = useRouter()
 const authStore = useAuthStore()
 
