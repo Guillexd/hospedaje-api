@@ -21,7 +21,7 @@ export function submitToastHandler<T>(handler: Promise<AxiosResponse<ApiResponse
           return errorf('Problema de conexión. Por favor, verifica tu red.')
         }
         if (!!error.status && error.status === 403) {
-          return errorf('No tiene permisos para realizar esta acción.')
+          return errorf('No tienes suficientes permisos para realizar esta acción.')
         }
         if (!!error.status && error.status >= 500) {
           return error.message

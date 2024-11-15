@@ -111,7 +111,7 @@ window.axios.interceptors.response.use(
       router.push({ name: 'Login' })
     }
     if (error.response?.status === 403 && error.response?.config.method === 'get') {
-      toast.info('No tiene permisos para ir a esta ruta.')
+      toast.info('No tienes suficientes permisos para obtener estos datos.')
     }
     return Promise.reject(error)
   }

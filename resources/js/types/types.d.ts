@@ -36,8 +36,8 @@ export interface AuthUserI extends Pick<AuthState, email> {
   name: string,
   dni: number | string,
   phone: number | string,
-  roles: [],
-  permissions: [],
+  roles: string[],
+  permissions: string[],
 }
 
 export interface UserI extends Omit<AuthUserI, id | permissions>, Pick<AuthState, password> {
