@@ -22,5 +22,6 @@ export enum apiNames {
   housing_payment = '/api/housing-payment',
   collect_and_payment = 'collect-add-payment',
   just_collect = 'just-collect',
-  cancel_collect = 'cancel-collect',
+  roles = '/api/role',
+  permissions = 'permissions',
 }

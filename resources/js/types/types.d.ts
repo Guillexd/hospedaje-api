@@ -36,19 +36,20 @@ export interface AuthUserI extends Pick<AuthState, email> {
   name: string,
   dni: number | string,
   phone: number | string,
-  roles: string[],
+  role: string,
   permissions: string[],
 }
 
 export interface UserI extends Omit<AuthUserI, id | permissions>, Pick<AuthState, password> {
   id: number,
-  birth_date: string,
   is_active: boolean,
+  role: string,
 }
 
 export interface UserState extends Omit<UserI, id | is_active> {
   id?: number,
   password_confirmation?: string,
+  role_id?: number,
 }
 
 export interface HousingI {
@@ -146,4 +147,20 @@ export interface DashboardI {
   tenancies: number,
   housingState: HousingDataI[],
   incomeState: IncomeDataI[],
+}
+
+export interface PermissionsI {
+  id: number,
+  description: string,
+}
+
+export interface RoleI {
+  id: number,
+  description: string,
+  permissions: PermissionsI[],
+}
+
+export interface RoleState extends Pick<RoleI, description>{
+  id?: number,
+  permissions: PermissionsI[] | number[],
 }

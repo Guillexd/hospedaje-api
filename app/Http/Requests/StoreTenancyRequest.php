@@ -51,6 +51,7 @@ class StoreTenancyRequest extends FormRequest
             'first_document_image_url' => '1° imagen de doc. de identidad',
             'second_document_image_url' => '2° imagen de doc. de identidad',
             'description' => 'descripción',
+            'phone' => 'teléfono',
         ];
     }
 

@@ -84,7 +84,8 @@ function closeImage() {
               <span class="font-medium">{{ housingPayment.housing }}</span>
               <span class="text-gray-700">Habitación {{ housingPayment.housing_room }}</span>
             </div>
-            <p class="text-gray-700 font-semibold text-center">
+            <p class="text-gray-700 font-semibold text-center my-4">
+              Desde
               {{ getLocaleDate(housingPayment.rental_start_date) }}
               hasta
               {{ getLocaleDate(housingPayment.rental_end_date) }}

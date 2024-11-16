@@ -35,12 +35,17 @@ class HelperPermission
             'edit_housing_payment' => 'Editar alquileres',
             'delete_housing_payment' => 'Eliminar alquileres',
             'collect_add_payment_housing_payment' => 'Cobrar y añadir nuevo alquiler',
-            'just_collect_housing_payment' => 'Cobrar alquiler',
+            'just_collect_housing_payment' => 'Solo cobrar alquiler',
             'cancel_collect_housing_payment' => 'Cancelar el cobro de alquiler',
-            'get_rent_expire_housing_payment' => 'Obtener alquileres por vencer en los próximos 7 días',
+            'get_rent_expire_housing_payment' => 'Ver los alquileres por vencer en los próximos 7 días',
             'get_dni' => 'Buscar por dni',
             'get_ruc' => 'Buscar por ruc',
             'change_status' => 'Cambiar el estado de los registros',
+            'see_roles' => 'Ver roles',
+            'add_roles' => 'Añadir roles',
+            'edit_roles' => 'Editar roles',
+            'delete_roles' => 'Eliminar roles',
+            'get_permissions' => 'Ver permisos',
         ]);
 
         return $permissions;

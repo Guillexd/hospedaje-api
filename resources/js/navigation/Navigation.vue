@@ -41,9 +41,9 @@ const scrollToTop = () => {
   <div v-if="authStore.isAuthenticated" class="flex h-screen dark:bg-slate-950">
     <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
       class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 xl:hidden"></div>
-    <NavBar :sidebar-open="sidebarOpen" @updateSidebarOpen="toggleSidebar" />
+    <NavBar :sidebar-open="sidebarOpen" @updateSidebarOpen="toggleSidebar" :permissions="authStore.user.permissions"/>
     <div class="flex flex-col flex-1 overflow-hidden overflow-y-auto" ref="scrollableDiv" @scroll="handleScroll">
-      <Header @updateSidebarOpen="toggleSidebar" />
+      <Header :permissions="authStore.user.permissions" @updateSidebarOpen="toggleSidebar" />
       <main class="px-4 md:px-12 py-4 md:py-8">
         <router-view />
       </main>

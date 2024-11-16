@@ -16,7 +16,7 @@ import { keyNames } from '../../enums/keyNames'
 import { apiNames } from '../../enums/apiNames'
 import TablePresentation from '../../Presentation/TablePresentation.vue'
 import PaginationPresentation from '../../Presentation/PaginationPresentation.vue'
-import { getLocaleDate, submitToastHandler, useChangeStatus } from '../../utils/utils'
+import { submitToastHandler, useChangeStatus } from '../../utils/utils'
 import FilterBarPresentation from '../../Presentation/FilterBarPresentation.vue'
 import UserModal from './UserModal.vue'
 import { useForm } from 'vee-validate'
@@ -28,13 +28,11 @@ const defaultVisibleColumns = computed(() => {
     return {
       id: false,
       email: false,
-      birth_date: false,
     }
   } else {
     return {
       id: false,
       email: true,
-      birth_date: true,
     }
   }
 })
@@ -51,12 +49,12 @@ const { isFetching, data, meta } = useFetchUser(keyNames.users, params)
 
 const initialStateUser: UserState = {
   id: undefined,
+  role_id: undefined,
   name: '',
   email: '',
   password: `$HSL-${new Date().getFullYear()}$`,
   dni: '',
   phone: '',
-  birth_date: '',
 }
 
 const columnHelper = createColumnHelper<typeof data.value[number]>()
@@ -139,10 +137,6 @@ const columns = [
   columnHelper.accessor('dni', {
     header: 'DNI',
     cell: (info) => h('span', info.getValue()),
-  }),
-  columnHelper.accessor('birth_date', {
-    header: 'Fecha de nacimiento',
-    cell: (info) => h('div', { class: 'min-w-28' }, getLocaleDate(info.getValue(), 'start')),
   }),
   columnHelper.accessor('is_active', {
     header: 'Estado',

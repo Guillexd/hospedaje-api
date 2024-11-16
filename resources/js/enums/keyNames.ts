@@ -6,4 +6,5 @@ export enum keyNames {
   tenancy = 'tenancy',
   housing_room = 'housing-room',
   housing_payment = 'housing-payment',
+  roles = 'roles',
 }

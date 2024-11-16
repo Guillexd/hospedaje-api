@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BedSingle, ChartPie, House, IdCard, KeyRound, User, Users } from 'lucide-vue-next'
+import { BedSingle, ChartPie, House, IdCard, KeyRound, User, UserPen, Users } from 'lucide-vue-next'
 import {
   Command,
   CommandEmpty,
@@ -10,12 +10,18 @@ import {
   CommandSeparator,
 } from '../components/ui/command'
 import { messagePerson } from '@/utils/utils'
+import type { PropType } from 'vue'
+import { Permissions } from '@/enums/permissions';
 
-defineProps({
+const props = defineProps({
   sidebarOpen: {
     required: true,
     type: Boolean,
   },
+  permissions: {
+    required: true,
+    type: Array as PropType<string[]>
+  }
 })
 const emit = defineEmits<{
   (event: 'updateSidebarOpen', value: boolean): void
@@ -23,6 +29,16 @@ const emit = defineEmits<{
 const closeSidebar = () => {
   emit('updateSidebarOpen', false)
 }
+
+const renderTenancyRoute = props.permissions.includes(Permissions.see_tenancies)
+const renderHousingPaymentRoute = props.permissions.includes(Permissions.see_housing_payment)
+const renderDashboardRoute = props.permissions.includes(Permissions.see_dashboard)
+const renderUserRoute = props.permissions.includes(Permissions.see_users)
+const renderIdentityDocRoute = props.permissions.includes(Permissions.see_identity_document)
+const renderRoleRoute = props.permissions.includes(Permissions.see_roles)
+const renderHousingRoute = props.permissions.includes(Permissions.see_housing)
+const renderHousingRoomRoute = props.permissions.includes(Permissions.see_housing_room)
+
 </script>
 
 <template>
@@ -42,31 +58,35 @@ const closeSidebar = () => {
 
         <template v-for="(group, groupIndex) in [
           {
+            render: renderTenancyRoute || renderHousingPaymentRoute,
             heading: 'Frecuentes',
             items: [
-              { icon: Users, name: 'Tenancy', value: 'inquilinos', text: 'Inquilinos' },
-              { icon: KeyRound, name: 'HousingPayment', value: 'Alquileres', text: 'Alquileres' },
+              { icon: Users, name: 'Tenancy', value: 'inquilinos', text: 'Inquilinos', render: renderTenancyRoute },
+              { icon: KeyRound, name: 'HousingPayment', value: 'Alquileres', text: 'Alquileres', render: renderHousingPaymentRoute },
             ]
           },
           {
+            render: renderDashboardRoute || renderUserRoute || renderIdentityDocRoute || renderRoleRoute,
             heading: 'Administrativo',
             items: [
-              { icon: ChartPie, name: 'Dashboard', value: 'inicio', text: 'Inicio' },
-              { icon: User, name: 'Users', value: 'usuarios', text: 'Usuarios' },
-              { icon: IdCard, name: 'IdentityDoc', value: 'documento de identidad', text: 'Documentos de identidad' },
+              { icon: ChartPie, name: 'Dashboard', value: 'inicio', text: 'Inicio', render: renderDashboardRoute },
+              { icon: User, name: 'Users', value: 'usuarios', text: 'Usuarios', render: renderUserRoute },
+              { icon: IdCard, name: 'IdentityDoc', value: 'documento de identidad', text: 'Documentos de identidad', render: renderIdentityDocRoute },
+              { icon: UserPen, name: 'Role', value: 'roles', text: 'Roles', render: renderRoleRoute },
             ]
           },
           {
+            render: renderHousingRoute || renderHousingRoomRoute,
             heading: 'Alquiler',
             items: [
-              { icon: House, name: 'Housing', value: 'propiedades', text: 'Propiedades' },
-              { icon: BedSingle, name: 'HousingRoom', value: 'habitaciones', text: 'Habitaciones' },
+              { icon: House, name: 'Housing', value: 'propiedades', text: 'Propiedades', render: renderHousingRoute },
+              { icon: BedSingle, name: 'HousingRoom', value: 'habitaciones', text: 'Habitaciones', render: renderHousingRoomRoute },
             ]
           },
         ]" :key="groupIndex">
-          <CommandGroup :heading="group.heading">
+          <CommandGroup v-if="group.render" :heading="group.heading">
             <template v-for="(item, itemIndex) in group.items" :key="itemIndex">
-              <router-link v-if="item.name" :to="{ name: item.name }" v-slot="{ isExactActive }">
+              <router-link v-if="item.render":to="{ name: item.name }" v-slot="{ isExactActive }">
                 <CommandItem :value="item.value"
                   :class="isExactActive ? 'bg-teal-100 dark:bg-slate-800' : 'hover:bg-teal-100 dark:hover:bg-slate-800 cursor-pointer'"
                   @click="closeSidebar">
@@ -74,9 +94,6 @@ const closeSidebar = () => {
                   {{ item.text }}
                 </CommandItem>
               </router-link>
-              <CommandItem v-else :value="item.value">
-                {{ item.text }}
-              </CommandItem>
             </template>
           </CommandGroup>
           <CommandSeparator />

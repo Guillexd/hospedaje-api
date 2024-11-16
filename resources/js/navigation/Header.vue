@@ -24,10 +24,18 @@ import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 import { useScreenModeStore } from '@/stores/screen-mode'
 import { keyNames } from '@/enums/keyNames'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, type PropType } from 'vue'
 import type { HousingPaymentI } from '@/types/types'
 import { dateCalculator, fetchData } from '@/utils/utils'
 import { apiNames } from '@/enums/apiNames'
+import { Permissions } from '@/enums/permissions'
+
+const props = defineProps({
+  permissions: {
+    required: true,
+    type: Array as PropType<string[]>
+  }
+})
 
 const emit = defineEmits<{
   (event: 'updateSidebarOpen', value: boolean): void
@@ -51,8 +59,12 @@ const searchRentDebtors = (customer: string) => {
 
 const payments = ref<HousingPaymentI[]>([])
 
+const shouldRenderRentExpire = props.permissions.includes(Permissions.get_rent_expire_housing_payment)
+
 onMounted(async () => {
-  payments.value = (await fetchData<HousingPaymentI[]>(`${apiNames.housing_payment}/${apiNames.get_rent_expire}`)).data
+  if (shouldRenderRentExpire) {
+    payments.value = (await fetchData<HousingPaymentI[]>(`${apiNames.housing_payment}/${apiNames.get_rent_expire}`)).data
+  }
 })
 
 </script>
@@ -70,7 +82,7 @@ onMounted(async () => {
     </section>
 
     <section class="flex justify-center items-center gap-x-7">
-      <DropdownMenu>
+      <DropdownMenu v-if="shouldRenderRentExpire">
         <DropdownMenuTrigger>
           <div
             class="relative top-1 p-1 cursor-pointer hover:bg-slate-200 focus:bg-slate-200 dark:hover:bg-gray-700 dark:focus:bg-gray-700 rounded-full text-slate-950 dark:text-slate-50">
@@ -147,11 +159,13 @@ onMounted(async () => {
           <DropdownMenuLabel>Roles de usuario</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem v-for="role in authStore.user.roles">
+            <DropdownMenuItem>
               <UserPen class="mr-2" :size="19" />
-              <span>{{ role }}</span>
+              <span>{{ authStore.user.role }}</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Aplicacion en modo {{ screenMode.isInDarkMode ? 'oscuro' : 'claro' }}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem class="focus:bg-inherit dark:focus:bg-inherit flex justify-center">
             <ToggleGroup type="single" class="grid grid-cols-1 w-full" v-model:model-value="screenMode.mode">

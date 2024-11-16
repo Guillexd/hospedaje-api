@@ -9,6 +9,7 @@ use App\Http\Controllers\HousingPaymentController;
 use App\Http\Controllers\HousingRoomController;
 use App\Http\Controllers\IdentityDocumentController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\TenancyController;
 use App\Http\Controllers\UsersController;
 use App\Http\Resources\UserAuthResource;
@@ -84,5 +85,13 @@ Route::middleware(['auth:sanctum'])->group(function () use ($permissions) {
 
     Route::prefix('generic')->controller(GenericController::class)->group(function () use ($permissions) {
         Route::patch('/change-status', 'changeStatus')->can($permissions->get(31));
+    });
+
+    Route::prefix('role')->controller(RolController::class)->group(function () use ($permissions) {
+        Route::get('/list', 'list')->can($permissions->get(32));
+        Route::post('/store', 'store')->can($permissions->get(33));
+        Route::put('/update', 'update')->can($permissions->get(34));
+        Route::delete('/destroy', 'destroy')->can($permissions->get(35));
+        Route::get('/permissions', 'getPermissions')->can($permissions->get(36));
     });
 });

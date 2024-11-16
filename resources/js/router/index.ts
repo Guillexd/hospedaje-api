@@ -69,7 +69,7 @@ const router = createRouter({
           ]
         },
         {
-          path: 'cuartos',
+          path: 'habitaciones',
           meta: { requiresAuth: true },
           children: [
             {
@@ -87,6 +87,17 @@ const router = createRouter({
               path: '',
               name: 'HousingPayment',
               component: () => import('../housing-payment/views/HousingPaymentView.vue'),
+            },
+          ]
+        },
+        {
+          path: 'roles',
+          meta: { requiresAuth: true },
+          children: [
+            {
+              path: '',
+              name: 'Role',
+              component: () => import('../roles/views/RoleView.vue'),
             },
           ]
         },

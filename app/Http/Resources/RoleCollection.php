@@ -4,8 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Spatie\Permission\Models\Permission;
 
-class UserCollection extends ResourceCollection
+class RoleCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,18 +15,12 @@ class UserCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->map(function ($user) {
-            $rol = new PermissionCollection($user->roles);
+        return $this->collection->map(function ($role) {
             return [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'dni' => $user->dni,
-                'phone' => $user->phone,
-                'role' => $rol[0]->description,
-                'is_active' => $user->is_active,
-
-                'role_id' => (string) $rol[0]->id
+                'id' => $role->id,
+                'name' => $role->name,
+                'description' => $role->description,
+                'permissions' => new PermissionCollection($role->permissions),
             ];
         })->toArray();
     }

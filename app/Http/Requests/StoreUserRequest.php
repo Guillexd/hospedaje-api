@@ -26,7 +26,10 @@ class StoreUserRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'string', 'max:100'],
-            'birth_date' => ['required', 'date_format:Y-m-d', 'before:' . now()->subYears(18)->toDateString()],
+            'role_id' => [
+                'required',
+                'exists:roles,id',
+            ],
             'email' => [
                 'required',
                 'string',
@@ -59,7 +62,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'nombre',
             'email' => 'correo electrónico',
             'phone' => 'teléfono',
-            'birth_date' => 'fecha de nacimiento',
+            'role' => 'rol',
             'password' => 'contraseña',
         ];
     }

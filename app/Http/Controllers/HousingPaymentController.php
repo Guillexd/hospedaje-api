@@ -90,7 +90,7 @@ class HousingPaymentController extends Controller
 
     public function collectAndAddNewPayment(StoreHousingPaymentRequest $request): Response
     {
-        HousingPayment::findOrFail($request->id)->update(['payment_date' => Carbon::now()->setSeconds(0)]);
+        HousingPayment::findOrFail($request->id)->update(['payment_date' => Carbon::now()]);
 
         HousingPayment::create(array_merge(
             $request->validated(),
@@ -105,7 +105,7 @@ class HousingPaymentController extends Controller
 
     public function justCollect(Request $request): Response
     {
-        HousingPayment::findOrFail($request->id)->update(['payment_date' => Carbon::now()->setSeconds(0)]);
+        HousingPayment::findOrFail($request->id)->update(['payment_date' => Carbon::now()]);
 
         HousingRoom::findOrFail($request->housing_room_id)->update(['is_available' => 1]);
 

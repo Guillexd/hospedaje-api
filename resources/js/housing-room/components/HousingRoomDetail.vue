@@ -10,7 +10,7 @@ import {
   DrawerTitle,
 } from '../../components/ui/drawer'
 import type { HousingRoomI } from '@/types/types'
-import { BadgeCheck, BadgeX } from 'lucide-vue-next'
+import { BadgeCheck, BadgeX, ListCheck, Lock } from 'lucide-vue-next'
 
 defineProps<{
   isDrawerOpen: boolean,
@@ -52,6 +52,14 @@ function updateDrawerState(value: boolean) {
                 {{ housing_room.is_active ? 'Activo' : 'No activo' }}
                 <BadgeCheck v-if="housing_room.is_active" class="text-green-500" />
                 <BadgeX v-else class="text-red-700" />
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Disponibilidad:</span>
+              <span class="text-gray-700 font-semibold flex gap-x-2">
+                {{ housing_room.is_available ? 'Disponible' : 'Ocupado' }}
+                <ListCheck v-if="housing_room.is_available" class="text-cyan-600" />
+                <Lock v-else class="text-gray-500" />
               </span>
             </div>
           </div>

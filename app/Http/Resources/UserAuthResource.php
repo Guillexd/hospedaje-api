@@ -21,7 +21,7 @@ class UserAuthResource extends JsonResource
             'email' => $this->email,
             'dni' => $this->dni,
             'phone' => $this->phone,
-            'roles' => $this->roles->pluck('description'),
+            'role' => $this->roles[0]->description,
             'permissions' => $this->getAllPermissions()->pluck('name')
         ];
     }

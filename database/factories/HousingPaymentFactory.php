@@ -21,8 +21,9 @@ class HousingPaymentFactory extends Factory
     {
         $housing_id = HousingRoom::inRandomOrder()->where('is_active', 1)->first()->id;
         $rentalStartDate = fake()->dateTimeBetween('-4 months', 'now');
-        $rentalEndDate = Carbon::instance($rentalStartDate)->addMonth();
+        $rentalEndDate = Carbon::instance($rentalStartDate)->addMonth()->format('Y-m-d H:i:s');
         $paymentDate = rand(1, 10) === 10 ? null : $rentalEndDate;
+        $rentalStartDate = Carbon::instance($rentalStartDate)->format('Y-m-d H:i:s');
 
         if(is_null($paymentDate)) {
             HousingRoom::find($housing_id)->update(['is_available' => 0]);

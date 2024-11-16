@@ -1,9 +1,8 @@
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { type AxiosResponse } from 'axios'
 import { toast } from 'vue-sonner'
 import type { ApiResponse, AuthUserI } from '@/types/types'
-import { Permissions } from '@/enums/permissions'
 import { apiNames } from '@/enums/apiNames'
 
 export const initialAuthState: AuthUserI = {
@@ -12,7 +11,7 @@ export const initialAuthState: AuthUserI = {
   email: '',
   dni: '',
   phone: '',
-  roles: [],
+  role: '',
   permissions: [],
 }
 
@@ -51,13 +50,6 @@ export const useAuthStore = defineStore('auth', () => {
       }
     )
   }
-
-  watch(user, (value) => {
-    console.log(value)
-    console.log(value.permissions.includes(Permissions.see_dashboard as never))
-  })
-
-  // falta hacer el crud de roles y permisos (ten consideraciones com oqeu no puedse eliiminar ni agregar permisos, o ver que pasa si eliminas roles)
 
   return { user, isAuthenticated, setUser, checkAuth, logOut }
 })

@@ -28,17 +28,20 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request): Response
     {
-        User::create(array_merge(
+        $user = User::create(array_merge(
             $request->validated(),
             ['password' => Hash::make($request->password)]
         ));
+        $user->syncRoles($request->role_id);
 
         return response()->noContent();
     }
 
     public function update(StoreUserRequest $request): Response
     {
-        User::findOrFail($request->id)->update($request->validated());
+        $user = User::findOrFail($request->id);
+        $user->update($request->validated());
+        $user->syncRoles($request->role_id);
 
         return response()->noContent();
     }
