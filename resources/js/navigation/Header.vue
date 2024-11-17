@@ -115,8 +115,12 @@ onMounted(async () => {
                     - Habitación <span class="font-bold text-gray-800 dark:text-gray-200">{{ payment.housing_room
                       }}</span>
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Vencimiento: {{
-                    dateCalculator(payment.rental_end_date) }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Vencimiento:
+                    <span class="font-bold">
+                      {{ dateCalculator(payment.rental_end_date) }}
+                    </span>
+                  </p>
                 </section>
                 <p class="font-medium text-blue-600 dark:text-blue-400 mt-1">{{
                   payment.payment.toLocaleString(keyNames.lang, { style: "currency", currency: "PEN" }) }}</p>
@@ -156,7 +160,7 @@ onMounted(async () => {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuLabel>Roles de usuario</DropdownMenuLabel>
+          <DropdownMenuLabel>Rol de usuario</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>

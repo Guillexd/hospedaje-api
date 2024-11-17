@@ -11,7 +11,7 @@ import {
 } from '../components/ui/command'
 import { messagePerson } from '@/utils/utils'
 import type { PropType } from 'vue'
-import { Permissions } from '@/enums/permissions';
+import { Permissions } from '@/enums/permissions'
 
 const props = defineProps({
   sidebarOpen: {

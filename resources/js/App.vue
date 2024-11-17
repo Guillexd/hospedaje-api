@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { Toaster } from 'vue-sonner'
 import { useScreenModeStore } from './stores/screen-mode'
 
-onMounted(() => {
-  useScreenModeStore()
-})
+const screenMode = useScreenModeStore()
 </script>
 
 <template>
-  <Toaster richColors position="top-right" closeButton />
+  <Toaster richColors position="top-right" closeButton: :theme="screenMode.isInDarkMode ? 'dark' : 'light'" :duration="900" />
   <router-view />
 </template>
