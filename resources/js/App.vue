@@ -6,6 +6,6 @@ const screenMode = useScreenModeStore()
 </script>
 
 <template>
-  <Toaster richColors position="top-right" closeButton: :theme="screenMode.isInDarkMode ? 'dark' : 'light'" :duration="900" />
+  <Toaster richColors position="top-right" closeButton: :theme="screenMode.isInDarkMode ? 'dark' : 'light'" :duration="1000" />
   <router-view />
 </template>

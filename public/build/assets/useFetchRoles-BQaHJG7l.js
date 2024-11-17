@@ -1,0 +1,1 @@
+import{K as r,L as s,M as p,f as o}from"./app-DtN2HjBM.js";function m(c,a){const l=()=>p(`${o.roles}/${o.list_action}?page=${a.page}&limit=${a.limit}&searchInput=${a.searchParam}`),{data:e,...n}=r(c,l,a),u=s(()=>{var t;return((t=e.value)==null?void 0:t.data)??[]}),i=s(()=>{var t;return((t=e.value)==null?void 0:t.meta)??null});return{data:u,meta:i,...n}}export{m as u};
